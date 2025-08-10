@@ -1,16 +1,15 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
-const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: { strategy: "database" },
   providers: [
     EmailProvider({
       from: "noreply@example.com",
-      // Для разработки: письма не отправляются, ссылка будет в консоли
       async sendVerificationRequest(params) {
         const { url, identifier } = params;
         console.log(`\n[DEV] Magic link for ${identifier}: ${url}\n`);
@@ -23,7 +22,6 @@ const authOptions: NextAuthOptions = {
             name: "Guest (DEV)",
             credentials: {},
             async authorize() {
-              // Создаем/находим гостевого пользователя
               const email = "guest@example.com";
               const user = await prisma.user.upsert({
                 where: { email },
@@ -40,9 +38,7 @@ const authOptions: NextAuthOptions = {
     signIn: "/signin",
     verifyRequest: "/verify-request",
   },
-};
-
-const handler = NextAuth(authOptions);
+});
 export { handler as GET, handler as POST };
 
 
