@@ -38,17 +38,6 @@ export default function ReportsPage() {
 
   const total = items.reduce((a, i) => a + Number(i.sum), 0);
 
-  const rows = useMemo(() => {
-    return [
-      ["Свод по статусам", "", ""],
-      ...Object.entries(totalByStatus).map(([s, v]) => [s, v, ""]),
-      ["Итого", total, ""],
-      ["", "", ""],
-      ["Свод по субпроектам", "", ""],
-      ...Object.entries(totalBySub).map(([s, v]) => [s, v, ""]),
-    ];
-  }, [totalByStatus, totalBySub, total]);
-
   function exportCsv() {
     const csv = toCsv([
       ["Субпроект", "Название", "Кол-во", "Цена", "Валюта", "Сумма", "Статус"],

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,9 +33,9 @@ export default function RootLayout({
               Public Cloud Procurement Machine
             </div>
             <nav className="flex items-center gap-3 text-sm">
-              <a href="/" className="rounded px-3 py-1.5 hover:bg-gray-100">План-график</a>
-              <a href="/dashboard" className="rounded px-3 py-1.5 hover:bg-gray-100">Дашборд</a>
-              <a href="/signin" className="rounded px-3 py-1.5 hover:bg-gray-100">Вход</a>
+              <Link href="/" className="rounded px-3 py-1.5 hover:bg-gray-100">План-график</Link>
+              <Link href="/dashboard" className="rounded px-3 py-1.5 hover:bg-gray-100">Дашборд</Link>
+              <Link href="/signin" className="rounded px-3 py-1.5 hover:bg-gray-100">Вход</Link>
             </nav>
           </div>
         </header>
